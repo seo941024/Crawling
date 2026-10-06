@@ -1,0 +1,23 @@
+# 이미지: 용량이 크고(수백 MB) 쇼핑몰 저작물이라 올리지 않는다. 수집 스크립트를 돌리면 다시 받아진다.
+*Images/
+okashiro/image_cache/
+okashiro/static/images/
+okashiro/ppt_images/
+
+# 서비스에서 제외한 쇼핑몰의 원본(재팬푸드몰: robots.txt 전체 금지, 구루메상: 운영 중단)
+JapanFoodMall_Product_Information.csv
+Gurumesan_Product_Information.csv
+
+# 노트북: 수집한 HTML 같은 출력이 들어 있고, 일부는 인증 관련 문자열을 포함한다. 코드는 crawl_*.py에 있다.
+*.ipynb
+
+# 발표 자료와 강의 자료
+*.pptx
+*.pdf
+
+# 임시·시험 파일
+*.tmp
+*.log
+__pycache__/
+crawltest/
+.venv/

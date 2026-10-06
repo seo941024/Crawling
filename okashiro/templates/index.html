@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="layout">
+  <aside id="filters" class="sidebar" aria-label="검색 필터">
+    <div class="sidebar-head">
+      <h2>필터</h2>
+      <button type="button" id="close-filters" class="icon-btn" aria-label="필터 닫기">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+    </div>
+
+    <fieldset class="group">
+      <legend>카테고리</legend>
+      <label class="opt"><input type="radio" name="cat" value="" checked> 전체</label>
+      {% for c in categories %}
+      <label class="opt"><input type="radio" name="cat" value="{{ c.name }}"> {{ c.name }} <small>{{ c.cnt }}</small></label>
+      {% endfor %}
+    </fieldset>
+
+    <fieldset class="group">
+      <legend>가격대</legend>
+      <label class="opt"><input type="radio" name="price" value="" checked> 전체</label>
+      <label class="opt"><input type="radio" name="price" value="low"> 5천원 이하</label>
+      <label class="opt"><input type="radio" name="price" value="mid"> 5천~1만원</label>
+      <label class="opt"><input type="radio" name="price" value="high"> 1만원 이상</label>
+    </fieldset>
+
+    <fieldset class="group">
+      <legend>할인율</legend>
+      <label class="opt"><input type="radio" name="disc" value="" checked> 전체</label>
+      <label class="opt"><input type="radio" name="disc" value="10"> 10% 이상</label>
+      <label class="opt"><input type="radio" name="disc" value="30"> 30% 이상</label>
+      <label class="opt"><input type="radio" name="disc" value="50"> 50% 이상</label>
+    </fieldset>
+
+    <fieldset class="group">
+      <legend>쇼핑몰</legend>
+      {% for s in sites %}
+      <label class="opt"><input type="checkbox" name="site" value="{{ s.site }}" checked> {{ s.site_label }} <small>{{ s.cnt }}</small></label>
+      {% endfor %}
+    </fieldset>
+
+    <button type="button" id="reset" class="reset">필터 초기화</button>
+  </aside>
+
+  <div id="overlay" class="overlay"></div>
+
+  <main id="main" class="content">
+    <div class="toolbar">
+      <button type="button" id="open-filters" class="filter-btn" aria-controls="filters" aria-expanded="false">필터</button>
+      <p id="status" class="status" aria-live="polite"></p>
+      <label class="sort">
+        정렬
+        <select id="sort">
+          <option value="discount">할인율 높은 순</option>
+          <option value="price_asc">낮은 가격 순</option>
+          <option value="price_desc">높은 가격 순</option>
+          <option value="name">이름 순</option>
+        </select>
+      </label>
+    </div>
+
+    <ul id="results" class="grid"></ul>
+    <nav id="pager" class="pager" aria-label="페이지 이동" hidden></nav>
+  </main>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='app.js') }}"></script>
+{% endblock %}
