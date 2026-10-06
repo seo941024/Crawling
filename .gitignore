@@ -4,10 +4,6 @@ okashiro/image_cache/
 okashiro/static/images/
 okashiro/ppt_images/
 
-# 서비스에서 제외한 쇼핑몰의 원본(재팬푸드몰: robots.txt 전체 금지, 구루메상: 운영 중단)
-JapanFoodMall_Product_Information.csv
-Gurumesan_Product_Information.csv
-
 # 노트북: 수집한 HTML 같은 출력이 들어 있고, 일부는 인증 관련 문자열을 포함한다. 코드는 crawl_*.py에 있다.
 *.ipynb
 
