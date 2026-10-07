@@ -25,8 +25,14 @@ TARGETS = {
 
 
 def main():
+    # 인자로 쇼핑몰 이름을 주면 그 쇼핑몰만 확인한다(예: python check_robots.py 코코재팬)
+    wanted = sys.argv[1:]
+    targets = {k: v for k, v in TARGETS.items() if not wanted or k in wanted}
+    if wanted and not targets:
+        print("알 수 없는 쇼핑몰:", wanted)
+        sys.exit(1)
     bad = 0
-    for label, (robots_url, urls) in TARGETS.items():
+    for label, (robots_url, urls) in targets.items():
         try:
             res = requests.get(robots_url, timeout=20, headers={"User-Agent": "Mozilla/5.0"})
         except Exception as e:

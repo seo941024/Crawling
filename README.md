@@ -33,7 +33,7 @@ python app.py        # http://127.0.0.1:5000
 
 ## 주간 자동 수집
 
-GitHub Actions가 robots.txt 확인 → 수집 3곳 → 새 DB 생성 → 상품 수 검증 순서로 실행하고, DB와 CSV를 결과물(Artifacts)로 30일 보관합니다. 상품 수가 3,000개 미만이면 실패 처리합니다. 이미지는 결과물에 포함하지 않습니다.
+GitHub Actions가 쇼핑몰별 robots.txt 확인 → 수집 → 새 DB 생성 → 상품 수 검증 순서로 실행하고(코코재팬은 GitHub 서버 접속이 막혀 건너뛰고 저장소의 CSV를 사용하므로 PC에서 수집해 올림), DB와 CSV를 결과물(Artifacts)로 30일 보관합니다. 상품 수가 3,000개 미만이면 실패 처리합니다. 이미지는 결과물에 포함하지 않습니다.
 Actions 화면에서 **Run workflow**로 수동 실행도 할 수 있습니다.
 
 ## 주의
