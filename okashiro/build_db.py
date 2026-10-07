@@ -139,7 +139,7 @@ def main():
             conn.execute(
                 "INSERT INTO products (site, site_label, category, main_category, name, orig_price, sale_price, discount_pct, image, url, name_norm, name_cho) "
                 "VALUES (?,?,?,?,?,?,?,?,?,?,?,?)",
-                (site["key"], site["label"], row.get("카테고리", ""), categorize(name, row.get("카테고리", "")), name,
+                (site["key"], site["label"], row.get("카테고리", ""), categorize(name, row.get("카테고리", ""), site["key"]), name,
                  orig, sale, pct, None, url, normalize(name), normalize(to_initials(name))),
             )
             pid = conn.execute("SELECT id FROM products WHERE site=? AND url=?", (site["key"], url)).fetchone()[0]
