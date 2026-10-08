@@ -46,6 +46,9 @@ def main():
             parser.parse([])  # robots.txt가 없으면 제한이 없는 것으로 본다
         else:
             print(f"[확인 실패] {label}: robots.txt 응답코드 {res.status_code}")
+            # 차단 원인 확인용 기록: 서버 종류, Cloudflare 요청 번호, 응답 본문 앞부분
+            print("  server:", res.headers.get("Server"), "| cf-ray:", res.headers.get("CF-RAY"), "| cf-mitigated:", res.headers.get("cf-mitigated"))
+            print("  본문:", " ".join(res.text.split())[:300])
             bad += 1
             continue
         for u in urls:
