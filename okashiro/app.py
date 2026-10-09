@@ -1,4 +1,5 @@
 import os
+import random
 import sqlite3
 
 from flask import Flask, jsonify, render_template, request
@@ -82,10 +83,40 @@ def category_stats():
     return [{"name": name, "cnt": counts[name]} for name in DISPLAY_ORDER if counts.get(name)]
 
 
+def random_cards():
+    """시작 화면에 보여줄 상품 카드: 쇼핑몰마다 이미지가 있는 상품을 무작위로 1개씩 고른다."""
+    sites, _ = site_stats()
+    cards = []
+    with get_conn() as conn:
+        for site in sites:
+            row = conn.execute(
+                "SELECT site_label, name, orig_price, sale_price, discount_pct, image FROM products "
+                "WHERE site = ? AND image IS NOT NULL ORDER BY RANDOM() LIMIT 1",
+                (site["site"],),
+            ).fetchone()
+            if row:
+                cards.append(dict(row))
+    random.shuffle(cards)  # 쇼핑몰 순서도 매번 섞는다
+    return cards
+
+
 @app.route("/")
+def start():
+    return render_template("start.html", cards=random_cards())
+
+
+@app.route("/shop")
 def index():
     sites, total = site_stats()
     return render_template("index.html", sites=sites, total=total, categories=category_stats())
+
+
+@app.route("/api/cards")
+def api_cards():
+    # 시작 화면 카드가 5초마다 새로 받아 가는 무작위 상품(쇼핑몰마다 1개)
+    response = jsonify(random_cards())
+    response.headers["Cache-Control"] = "no-store"
+    return response
 
 
 @app.route("/about")

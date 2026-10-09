@@ -17,10 +17,11 @@
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
       </button>
 
-      <a class="logo" href="{{ url_for('index') }}" aria-label="오카시에리 홈">오카시<span>에리</span></a>
+      <a class="logo" href="{{ url_for('start') }}" aria-label="오카시에리 시작 화면">오카시<span>에리</span></a>
 
       <nav id="site-nav" class="nav" aria-label="주요 메뉴">
-        <a href="{{ url_for('index') }}" data-nav>홈</a>
+        <a href="{{ url_for('start') }}" data-nav>홈</a>
+        <a href="{{ url_for('index') }}" data-nav>상품</a>
         <a href="{{ url_for('about') }}" data-nav>소개</a>
       </nav>
 
