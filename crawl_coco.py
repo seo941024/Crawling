@@ -24,6 +24,19 @@ HEADER = ["제품명", "정가", "할인가", "이미지URL", "상품링크"]
 HARD_LIMIT = 150  # 종료 조건이 작동하지 않을 때의 안전장치 (2026-10 기준 실제 마지막 페이지는 88)
 
 
+def get_with_retry(url, tries=3, **kw):
+    """일시적인 응답 지연(타임아웃)·연결 오류는 간격을 늘려 다시 시도한다. 계속 실패하면 예외를 그대로 낸다."""
+    for n in range(1, tries + 1):
+        try:
+            return requests.get(url, **kw)
+        except (requests.exceptions.Timeout, requests.exceptions.ConnectionError) as e:
+            if n == tries:
+                raise
+            wait = 10 * n
+            print(f"  요청 실패({type(e).__name__}) -> {wait}초 뒤 재시도 ({n}/{tries - 1})", flush=True)
+            time.sleep(wait)
+
+
 def safe_filename(name):
     return re.sub(r'[\\/:*?"<>|]', '_', name)
 
@@ -54,7 +67,7 @@ def main(out_dir, max_pages):
             if max_pages and page > max_pages:
                 break
             url = FIRST_PAGE if page == 1 else AJAX_PAGE.format(page=page)
-            res = requests.get(url, headers=HDR, timeout=30)
+            res = get_with_retry(url, headers=HDR, timeout=30)
             time.sleep(random.randint(2, 4))
             if res.status_code != 200:
                 print(f"{page}페이지 응답코드 {res.status_code} -> 종료", flush=True)
