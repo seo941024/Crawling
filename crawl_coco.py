@@ -79,7 +79,7 @@ def main(out_dir, max_pages):
             new = [it for it in items if it[4] not in seen]
             print(f"코코재팬 {page}페이지: 카드 {len(cards)}개, 새 상품 {len(new)}개", flush=True)
             if not new:
-                break  # 상품이 없거나 같은 상품만 반복되면 마지막 페이지다
+                break  # 상품이 없거나 같은 상품만 반복되면 마지막 페이지로 인식
 
             for name, price, dis_price, imgurl, link in new:
                 seen.add(link)
