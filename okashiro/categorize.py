@@ -118,7 +118,8 @@ def categorize(name, source_category="", site=""):
     for cat, words in RULES:
         for w in words:
             pos = text.rfind(w)
-            if pos > best_pos:  # 상품명에서 더 뒤쪽에 있는 키워드의 분류를 우선 (위치가 같으면 먼저 정한 분류 유지)
+            if pos > best_pos:  # 상품 이름 안에 여러 분류의 키워드가 함께 들어 있을 때,
+                                # 이름에서 더 뒤쪽에 있는 키워드의 분류로 지정. 같으면 앞 카테고리 유지
                 best_cat, best_pos = cat, pos
     if best_cat:
         return best_cat
