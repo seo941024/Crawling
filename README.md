@@ -27,9 +27,9 @@ flowchart LR
 | 단계 | 파일 | 하는 일 |
 |---|---|---|
 | 데이터 수집 | `check_robots.py`, `crawl_coco.py`, `crawl_nppip.py`, `crawl_iroiro.py` | 수집 허용 확인, 쇼핑몰별 상품 수집 |
-| 데이터 정제 | `okashiro/build_db.py`, `okashiro/categorize.py` | 가격 숫자 변환, 중복 제거, 공통 분류 |
-| DB 구축 | `okashiro/build_db.py` | `products` 표 생성과 저장 |
-| 검색 서비스 | `okashiro/app.py`, `okashiro/static/app.js` | 검색 API와 화면 |
+| 데이터 정제 | `okashieri/build_db.py`, `okashieri/categorize.py` | 가격 숫자 변환, 중복 제거, 공통 분류 |
+| DB 구축 | `okashieri/build_db.py` | `products` 표 생성과 저장 |
+| 검색 서비스 | `okashieri/app.py`, `okashieri/static/app.js` | 검색 API와 화면 |
 | 자동화 | `.github/workflows/weekly-crawl.yml` | 매주 수집 → DB 생성 → 상품 수 검증 |
 
 ## 1. 데이터 수집
@@ -150,12 +150,12 @@ sequenceDiagram
 ```bash
 git clone https://github.com/seo941024/Crawling.git
 cd Crawling
-pip install -r okashiro/requirements.txt
-cd okashiro
+pip install -r okashieri/requirements.txt
+cd okashieri
 python app.py        # http://127.0.0.1:5000
 ```
 
-- CSV 3개와 `okashiro/okashiro.db`는 저장소에 포함되어 있어 바로 실행됩니다.
+- CSV 3개와 `okashieri/okashieri.db`는 저장소에 포함되어 있어 바로 실행됩니다.
 - **상품 이미지는 저장소에 없습니다**(용량·저작권). 수집 스크립트를 돌리면 받아지고, 없으면 화면에 "이미지 없음"으로 표시됩니다.
 - 엔핍 수집에는 Chrome이 필요합니다.
 - 수집 스크립트는 `--out-dir`(저장 폴더)와 `--max-pages`(시험 실행용)를 받습니다.
@@ -168,5 +168,5 @@ GitHub Actions가 쇼핑몰별 robots.txt 확인 → 수집 → 새 DB 생성 �
 
 - 쇼핑몰 약관이 정보의 복제·제공을 제한할 수 있으므로 공개하지 않습니다.
 - README 화면 캡처에는 쇼핑몰 상품 이미지가 들어 있어, 저장소를 공개로 바꾸기 전에는 교체해야 합니다.
-- 프로젝트 이름은 오카시에리(Okashieri)이고, 코드 폴더 이름은 처음 만들 때의 `okashiro/`를 그대로 씁니다.
+- 프로젝트 이름과 코드 폴더 이름은 모두 오카시에리(Okashieri), `okashieri/`입니다.
 - 재팬푸드몰(robots.txt가 크롤러를 전부 금지)과 구루메상(운영 중단)은 서비스에서 제외했습니다. 두 곳의 수집 원본 CSV는 기록용으로만 저장소에 있고, 자동 수집과 사이트에는 쓰이지 않습니다.

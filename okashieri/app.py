@@ -7,7 +7,7 @@ from flask import Flask, jsonify, render_template, request
 from categorize import DISPLAY_ORDER
 
 BASE = os.path.dirname(os.path.abspath(__file__))
-DB_PATH = os.environ.get("OKASHIRO_DB", os.path.join(BASE, "okashiro.db"))
+DB_PATH = os.environ.get("OKASHIERI_DB", os.path.join(BASE, "okashieri.db"))
 
 CHO = set("ㄱㄲㄴㄷㄸㄹㅁㅂㅃㅅㅆㅇㅈㅉㅊㅋㅌㅍㅎ")
 PAGE_SIZE = 40

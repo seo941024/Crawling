@@ -21,7 +21,7 @@ IMG_OUT = os.path.join(BASE, "static", "images")
 CACHE_DIR = os.path.join(BASE, "image_cache")  # 뱃지 대신 받아 온 대표 이미지를 상품 주소 기준으로 보관
 os.makedirs(CACHE_DIR, exist_ok=True)
 # 다른 경로를 인자로 주면 운영 DB를 건드리지 않고 시험용 DB를 만들 수 있다
-DB_PATH = sys.argv[1] if len(sys.argv) > 1 else os.path.join(BASE, "okashiro.db")
+DB_PATH = sys.argv[1] if len(sys.argv) > 1 else os.path.join(BASE, "okashieri.db")
 
 HDR = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.7922.174 Safari/537.36'}
 

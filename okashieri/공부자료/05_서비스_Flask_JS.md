@@ -126,10 +126,10 @@ function el(tag, className, text) {
 
 ## 7. 실행 방법
 ```
-cd okashiro
+cd okashieri
 python app.py          # http://127.0.0.1:5000
 ```
-(환경변수 `OKASHIRO_DB`로 다른 DB 파일을 지정할 수 있음.)
+(환경변수 `OKASHIERI_DB`로 다른 DB 파일을 지정할 수 있음.)
 `debug=True`는 개발용입니다. 공개 서버에서는 꺼야 합니다.
 
 ## 8. Flask를 고른 이유
