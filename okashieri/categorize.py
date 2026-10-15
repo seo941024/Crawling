@@ -43,6 +43,17 @@ RULES = [
     ("기타", ["스피루리나", "아트시트"]),
 ]
 
+# 대표 분류와 함께 검색되게 할 추가 분류("초코 쿠키" -> 쿠키·디저트 + 초콜릿).
+# 맛·재료·브랜드 단어까지 쓰면 "가루비"가 "가루" 때문에 소스로 잡히는 식의 오분류가 생겨서,
+# 그 자체로 상품 종류인 단어만 쓴다.
+SUB_RULES = [
+    ("초콜릿", ["초콜릿", "초콜렛", "쵸콜", "쵸코", "초코"]),
+    ("쿠키·디저트", ["쿠키", "비스킷", "비스켓", "러스크", "케이크", "케익", "웨하스", "카스테라", "카스텔라", "와플",
+                 "도넛", "도너츠", "머핀", "마들렌", "타르트", "모나카"]),
+    ("견과·건어물", ["견과", "땅콩", "아몬드", "호두", "캐슈", "마카다미아", "피스타치오"]),
+    ("사탕·젤리", ["사탕", "캔디", "구미", "젤리", "카라멜", "캬라멜", "캐러멜", "마시멜로"]),
+]
+
 # "과자"는 쇼핑몰이 붙이는 일반 태그("/ 수입과자")라 종류 키워드가 없을 때만 쓴다.
 GENERIC_SNACK = "과자"
 
@@ -126,3 +137,10 @@ def categorize(name, source_category="", site=""):
     if GENERIC_SNACK in text:
         return "과자·스낵"
     return SOURCE_FALLBACK.get(source_category, SITE_FALLBACK.get(site, "기타"))
+
+
+def sub_categories(name, main):
+    if _key(name) in MANUAL:  # 직접 지정한 상품은 대표 분류만 쓴다
+        return []
+    text = clean(name)
+    return [cat for cat, words in SUB_RULES if cat != main and any(w in text for w in words)]

@@ -13,7 +13,7 @@ import sys
 
 import requests
 
-from categorize import categorize, is_excluded
+from categorize import categorize, is_excluded, sub_categories
 
 BASE = os.path.dirname(os.path.abspath(__file__))
 SRC = os.path.dirname(BASE)
@@ -91,6 +91,7 @@ def main():
             site_label TEXT NOT NULL,
             category TEXT,
             main_category TEXT NOT NULL,
+            sub_category TEXT NOT NULL DEFAULT '',
             name TEXT NOT NULL,
             orig_price INTEGER NOT NULL,
             sale_price INTEGER NOT NULL,
@@ -135,12 +136,14 @@ def main():
             if orig < sale:
                 orig = sale
             pct = round((orig - sale) / orig * 100)
+            main = categorize(name, row.get("카테고리", ""), site["key"])
+            sub = ",".join(sub_categories(name, main))  # 예: "초콜릿,견과·건어물"
 
             conn.execute(
-                "INSERT INTO products (site, site_label, category, main_category, name," \
+                "INSERT INTO products (site, site_label, category, main_category, sub_category, name," \
                 "orig_price, sale_price, discount_pct, image, url, name_norm, name_cho) "
-                "VALUES (?,?,?,?,?,?,?,?,?,?,?,?)",
-                (site["key"], site["label"], row.get("카테고리", ""), categorize(name, row.get("카테고리", ""), site["key"]), name,
+                "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)",
+                (site["key"], site["label"], row.get("카테고리", ""), main, sub, name,
                  orig, sale, pct, None, url, normalize(name), normalize(to_initials(name))),
             )
             pid = conn.execute("SELECT id FROM products WHERE site=? AND url=?", (site["key"], url)).fetchone()[0]

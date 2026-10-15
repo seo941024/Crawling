@@ -44,8 +44,9 @@ def int_arg(name, default=None, lo=0, hi=10_000_000):
 def build_where(query, sites, min_price, max_price, min_discount, category):
     clauses, params = [], []
     if category:
-        clauses.append("main_category = ?")
-        params.append(category)
+        # 대표 분류나 추가 분류 중 하나라도 맞으면 찾는다(초코 쿠키는 쿠키·디저트와 초콜릿 둘 다)
+        clauses.append("(main_category = ? OR sub_category LIKE ?)")
+        params.extend([category, f"%{category}%"])
     for token in query.split():
         token = token.lower()
         # 자음만으로 된 단어는 초성 검색, 나머지는 일반 이름 검색
@@ -79,7 +80,12 @@ def site_stats():
 
 def category_stats():
     with get_conn() as conn:
-        counts = dict(conn.execute("SELECT main_category, COUNT(*) FROM products GROUP BY main_category").fetchall())
+        counts = {
+            name: conn.execute(
+                "SELECT COUNT(*) FROM products WHERE main_category = ? OR sub_category LIKE ?", (name, f"%{name}%")
+            ).fetchone()[0]
+            for name in DISPLAY_ORDER
+        }
     return [{"name": name, "cnt": counts[name]} for name in DISPLAY_ORDER if counts.get(name)]
 
 
