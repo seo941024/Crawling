@@ -152,7 +152,8 @@ def api_search():
         pages = max(-(-total // PAGE_SIZE), 1)
         page = min(page, pages)  # 범위를 넘는 페이지는 마지막 페이지로 맞춘다
         rows = conn.execute(
-            f"SELECT id, site_label, category, name, orig_price, sale_price, discount_pct, image, url "
+            # 화면 상품 카드에 쓰는 7개만 불러온다(분류·검색용 칼럼은 WHERE 조건에만 쓴다)
+            f"SELECT site_label, name, image, orig_price, sale_price, discount_pct, url "
             f"FROM products WHERE {where} ORDER BY {order_by} LIMIT ? OFFSET ?",
             params + [PAGE_SIZE, (page - 1) * PAGE_SIZE],
         ).fetchall()
