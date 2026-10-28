@@ -17,3 +17,11 @@ okashieri/ppt_images/
 __pycache__/
 crawltest/
 .venv/
+# 작업용 파일 (PC에만 보관)
+.claude/
+.vscode/
+okashieri/HANDOFF.md
+okashieri/PPT_*.md
+okashieri/ppt_*.js
+okashieri/공부자료/
+okashieri/대본*.md
