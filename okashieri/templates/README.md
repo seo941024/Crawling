@@ -20,7 +20,7 @@
 ## 참고
 
 - `index.html`의 상품 목록은 서버 렌더링 없이 `static/app.js`가 `/api/search` JSON을 받아 `#results`, `#pager`에 출력
-- `start.html`은 `base.html` 미상속, 별도 스타일 `start.css` 사용
+- `start.html`은 `base.html` 미상속, 스타일 `start.css` 사용
 - 상단 검색창은 `/shop?q=검색어` GET 요청으로 상품 화면 이동
 
 ## 화면

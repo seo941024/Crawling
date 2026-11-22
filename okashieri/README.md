@@ -65,6 +65,6 @@
 2. `python build_db.py`로 `okashieri.db` 재생성, 경로 인자 지정 시 시험용 DB 별도 생성
 3. `python app.py`로 `http://127.0.0.1:5000` 실행
 
-- `okashieri.db`와 CSV는 저장소에 포함, 2단계 없이 바로 실행 가능
+- `okashieri.db`와 CSV는 저장소에 포함, 2단계 없이 실행 가능
 - `static/images/` 상품 이미지는 저장소 미포함, 이미지가 없는 상품은 "이미지 없음" 표시
 - `OKASHIERI_DB` 환경 변수로 `app.py`가 읽을 DB 경로 변경 가능
