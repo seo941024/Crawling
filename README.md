@@ -46,6 +46,7 @@ flowchart LR
 | 저장 | SQLite | 별도 DB 서버 불필요, 파일 하나로 관리, 단순 구조·소규모 데이터에 적합 |
 | 서비스 | Flask | 수집·정제와 같은 Python 기반 웹 서버, 개발 언어 일원화, Streamlit 대비 화면·서버 구조 직접 설계 가능 |
 | 서비스 | JavaScript | 검색 결과 데이터(JSON) 수신 후 상품 목록 영역만 갱신, 필터 변경 시 현재 화면 유지, 단순한 화면이라 빌드가 필요한 프레임워크 대신 순수 JavaScript 사용 |
+| 자동화 | GitHub Actions | 처음 계획한 APScheduler·작업 스케줄러 대비 PC 상시 가동 불필요, GitHub 서버에서 매주 예약 실행·수동 실행 지원, 수집 결과(DB·CSV) 30일 보관 |
 
 ## 1. 데이터 수집
 
