@@ -97,8 +97,8 @@ def main():
             url = ROOT + slug + "/" + ("" if page == 1 else f"page/{page}/")
             res = get_with_retry(url, headers=HDR, timeout=30)
             time.sleep(random.randint(2, 4))
-            if res.status_code != 200:
-                break
+            if res.status_code != 200:  # 중간에 실패하면 교체하지 않는다(기존 CSV 유지)
+                raise SystemExit(f"{cat_name} {page}페이지 응답코드 {res.status_code} -> 수집 중단, 기존 CSV 유지")
             # 마지막 페이지를 넘기면 404가 아니라 메인 페이지로 리다이렉트된다. 주소가 바뀌었으면 끝난 것이다.
             if unquote(res.url).rstrip("/") != unquote(url).rstrip("/"):
                 print(cat_name, f"{page}페이지부터 리다이렉트 -> 카테고리 끝", flush=True)
@@ -134,6 +134,8 @@ def main():
             page += 1
 
     f.close()
+    if not seen:
+        raise SystemExit("수집된 상품이 0개라서 기존 CSV를 유지합니다.")
     os.replace(tmp_path, CSV_PATH)
     print("완료. 상품", len(seen), flush=True)
 

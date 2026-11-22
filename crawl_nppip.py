@@ -1,7 +1,7 @@
 """엔핍(nppip) 상품 수집 (동적 사이트: Selenium으로 렌더링한 뒤 BeautifulSoup으로 파싱)
 
-all_crawling.ipynb의 crawl_nppip을 서버에서 주기적으로 돌릴 수 있게 스크립트로 옮긴 것이다.
-노트북과 다른 점: 화면 없이(headless) 실행하고, 페이지 수(66)를 고정하지 않고
+서버에서 주기적으로 돌릴 수 있게 만든 수집 스크립트다.
+화면 없이(headless) 실행하고, 페이지 수(66)를 고정하지 않고
 상품이 없거나 새 상품이 없으면 멈춘다. 끝까지 성공했을 때만 기존 CSV를 교체한다.
 """
 import argparse

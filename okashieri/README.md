@@ -16,7 +16,6 @@
 | `templates/` | Jinja2 화면 템플릿 4개, [templates/README.md](templates/README.md) 참고 |
 | `static/` | 화면 스크립트와 스타일 |
 | `DECISIONS.md` | 수집·정제·분류·검색·화면 설계의 선택 이유 기록 |
-| `프로젝트_정리.md` | 진행 내용 요약 문서 |
 | `title.png` | 시작 화면 캡처 |
 
 ## 화면

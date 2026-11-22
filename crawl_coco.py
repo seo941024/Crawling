@@ -1,7 +1,7 @@
 """코코재팬 상품 수집 (정적 사이트: requests + BeautifulSoup, 더보기는 AJAX 주소를 직접 호출)
 
-all_crawling.ipynb의 crawl_coco를 서버에서 주기적으로 돌릴 수 있게 스크립트로 옮긴 것이다.
-노트북과 다른 점: 페이지 수를 고정하지 않고 상품이 없거나 새 상품이 없으면 멈춘다.
+서버에서 주기적으로 돌릴 수 있게 만든 수집 스크립트다.
+페이지 수를 고정하지 않고 상품이 없거나 새 상품이 없으면 멈춘다.
 수집 결과는 끝까지 성공했을 때만 기존 CSV를 교체한다.
 """
 import argparse
@@ -70,8 +70,8 @@ def main(out_dir, max_pages):
             res = get_with_retry(url, headers=HDR, timeout=30)
             time.sleep(random.randint(2, 4))
             if res.status_code != 200:
-                print(f"{page}페이지 응답코드 {res.status_code} -> 종료", flush=True)
-                break
+                # 중간에 실패하면 교체하지 않는다(임시 파일만 남고 기존 CSV 유지)
+                raise SystemExit(f"{page}페이지 응답코드 {res.status_code} -> 수집 중단, 기존 CSV 유지")
             soup = BeautifulSoup(res.text, "lxml")
             cards = soup.find_all('li', attrs={'class': 'sct_li'})
             cards = [p for p in cards if p.find('span', attrs={'class': 'best_icon'}) is None]  # BEST 캐러셀 중복 제외
